@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useVendor } from '../../api/vendor.js';
-import { useAuth } from '../../api/useAuth';
+import { useAuth } from '../../api/auth';
 import { 
   Sprout, Building2, CreditCard, FileText, User, ArrowRight, Leaf,
   CheckCircle2, AlertCircle, Loader2, Upload, Mail, Phone, Lock, Landmark,
@@ -12,9 +12,9 @@ const CreateVendorForm = () => {
   const { user } = useAuth();
   
   const [formData, setFormData] = useState({
-    name:"vendor",email: "vendor@gmail.com", phone: "446547879", password: "khetivalah",
-    farmName:"Green valley", panNumber: 'AKJHF85465', bankAccountNumber: '7465646',
-    bankHolderName: 'khetivalah', bankIFSC: 'HDFC39887', bankName: 'HDFC',
+    name:"",email: "", phone: "", password: "",
+    farmName:"", panNumber: '', bankAccountNumber: '',
+    bankHolderName: '', bankIFSC: '', bankName: '',
     certifications: null
   });
 
@@ -62,7 +62,6 @@ const CreateVendorForm = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfdfc] text-slate-900 font-sans antialiased pb-8">
-      {/* Header Section */}
       <div className="bg-white border-b border-gray-100 mb-6">
         <div className="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">

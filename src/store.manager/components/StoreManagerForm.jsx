@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useStore } from "../../api/store"; 
-import { useAuth } from "../../api/useAuth";
+import { useAuth } from "../../api/auth";
 
 const StoreManagerForm = ({ onSubmit, initialData = {}, loading }) => {
   const [formState, setFormState] = useState({
@@ -19,7 +19,7 @@ const StoreManagerForm = ({ onSubmit, initialData = {}, loading }) => {
   });
 
   const { stores, fetchAllStore } = useStore();
-  const { users, getAllUsers } = useAuth(); // Assuming useAuth can fetch all users
+  const { users, getAllUsers } = useAuth(); 
 
   useEffect(() => {
     fetchAllStore();
@@ -58,7 +58,6 @@ const StoreManagerForm = ({ onSubmit, initialData = {}, loading }) => {
           onChange={handleChange}
           required
         >
-          {/* This assumes users are available from a hook */}
           {users?.map((user) => (
             <MenuItem key={user._id} value={user._id}>
               {user.name} ({user.email})
