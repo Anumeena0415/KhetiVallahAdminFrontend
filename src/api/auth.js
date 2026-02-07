@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext.jsx";
 import {API_BASE_URI} from "../Utils/Utils.js";
 
 

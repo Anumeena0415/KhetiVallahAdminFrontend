@@ -48,6 +48,10 @@ export default function PendingProductsTable() {
     });
   }, [fetchProductsByStatus]);
 
+  const handleApproveProduct = async (productId) =>{
+    await approveProduct(productId);
+    fetchProductsByStatus("PENDING");
+  }
   const handleReject = async () => {
     if (!rejectReason.trim() || !rejectItem) return;
 
@@ -96,7 +100,7 @@ export default function PendingProductsTable() {
               variant="contained"
               size="small"
               disabled={isDummy}
-              onClick={() => approveProduct(row._id)}
+              onClick={() => handleApproveProduct(row._id)}
             >
               Approve
             </Button>
@@ -126,7 +130,7 @@ export default function PendingProductsTable() {
         columns={columns}
         rows={products}
         actions={{ view: true }}
-        onView={(row) => navigate(`/product/${row._id}`)}
+        onView={(row) => navigate(`/product-details/${row._id}`)}
       />
 
       {/* REJECT DIALOG */}

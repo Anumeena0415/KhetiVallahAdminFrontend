@@ -89,9 +89,9 @@ export function useProducts() {
   const approveProduct = useCallback(async (id) => {
     setError(null);
     try {
-      const { data } = await axios.put(`${API_BASE_URI}/api/product/admin/approve-product/${id}`,{
-		withCredentials:true
-	  });
+      const { data } = await axios.put(`${API_BASE_URI}/api/product/admin/approve-product/${id}`, {}, {
+        withCredentials: true
+      });
       setProducts((prev) =>
         prev.map((p) => (p._id === id ? data.data : p))
       );

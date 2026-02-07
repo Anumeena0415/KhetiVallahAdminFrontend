@@ -24,33 +24,15 @@ import { useVendor } from '../../api/vendor';
 
 const PendingVendorList = () => {
   const navigate = useNavigate();
-  const { getVendors, approveVendor, rejectVendor, loading } = useVendor();
+  const { getVendors, vendors,setVendors,approveVendor, rejectVendor, loading } = useVendor();
 
-  const [vendors, setVendors] = useState([]);
-  const [busy, setBusy] = useState(null);
   const [rejectModal, setRejectModal] = useState({ open: false, vendor: null, reason: '' });
 
-  // Normalize incoming API data into UI shape
-  const normalize = (arr) => {
-    return arr.map(v => ({
-      id: v._id,
-      name: v.farmName || v.name,
-      email: v.user?.email,
-      ownerName: v.user?.name,
-      ownerPhone: v.user?.phone,
-      status: v.verification?.status || 'PENDING',  // PENDING | APPROVED | REJECTED
-    }));
-  };
-
+  
   useEffect(() => {
     const init = async () => {
-      const res = await getVendors({ verificationStatus: 'PENDING' }).catch(() => null);
-
-      if (res?.success && Array.isArray(res.data)) {
-        setVendors(normalize(res.data));
-      } else {
-        setVendors([]);
-      }
+      await getVendors({ verificationStatus: 'PENDING' }).catch(() => null);
+      
     };
 
     init();
@@ -82,93 +64,92 @@ const PendingVendorList = () => {
   };
 
   const columns = useMemo(
-    () => [
-      {
-        key: 'vendor',
-        label: 'Vendor',
-        render: v => (
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Avatar>{(v.name || 'V')[0]}</Avatar>
+      () => [
+        {
+          key: "vendor",
+          label: "Vendor",
+          render: (v) => (
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: "primary.main" }}>
+                {(v?.user.name?.en || v.user.name || "V")[0]}
+              </Avatar>
+              <Box>
+                <Typography fontWeight={700}>{v.name?.en || v.user?.name}</Typography>
+                <Typography variant="caption" sx={{ display: "flex", gap: 0.5 }}>
+                  <Email fontSize="small" /> {v.user.email}
+                </Typography>
+              </Box>
+            </Stack>
+          ),
+        },
+        {
+          key: "FamrName",
+          label: "Farm Name",
+          render: (v) => (
             <Box>
-              <Typography fontWeight={600}>{v.name}</Typography>
-              <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center', gap: .5 }}>
-                <Email sx={{ fontSize: 12 }} /> {v.email}
+              <Typography>{v.farmName}</Typography>
+              <Typography variant="caption" sx={{ display: "flex", gap: 0.5 }}>
+                <Phone fontSize="small" /> {v.user?.phone}
               </Typography>
             </Box>
-          </Stack>
-        ),
-      },
-      {
-        key: 'owner',
-        label: 'Owner',
-        render: v => (
-          <Box>
-            <Typography>{v.ownerName}</Typography>
-            <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center', gap: .5 }}>
-              <Phone sx={{ fontSize: 12 }} /> {v.ownerPhone}
-            </Typography>
-          </Box>
-        ),
-      },
-      {
-        key: 'status',
-        label: 'Status',
-        render: v => {
-          if (v.status === 'APPROVED')
-            return <Chip label="Approved" color="success" size="small" />;
+          ),
+        },
+       
+        {
+          key: "status",
+          label: "Status",
+          render: (v) => {
+            const approved = v.status;
+            const rejected = v.status;
+  
+            if (approved)
+              return <Chip label="Approved" color="success" size="small" />;
+            if (rejected)
+              return <Chip label="Rejected" color="error" size="small" />;
+            return <Chip label="Pending" color="warning" size="small" variant="outlined" />;
+          },
+        },
 
-          if (v.status === 'REJECTED')
-            return <Chip label="Rejected" color="error" size="small" />;
-
-          return <Chip label="Pending" color="warning" size="small" variant="outlined" />;
-        }
-      },
-      {
+        {
         key: 'actions',
         label: 'Actions',
-        render: v => {
-          const isBusy = busy === v.id;
-          const decided = v.status !== 'PENDING';
-
+        render:(v) => {
           return (
             <Stack direction="row" spacing={1}>
               <Tooltip title="View Profile">
-                <IconButton size="small" onClick={() => navigate(`/vendor/${v.id}`)}>
+                <IconButton size="small" onClick={() => navigate(`/vendor/${v._id}`)}>
                   <VisibilityOutlined fontSize="small" />
                 </IconButton>
               </Tooltip>
 
-              {!decided && (
                 <>
                   <Button
                     size="small"
                     variant="contained"
                     color="success"
-                    onClick={() => handleApprove(v.id)}
-                    disabled={isBusy}
+                    onClick={() => handleApprove(v._id)}
                   >
-                    {isBusy ? <CircularProgress size={16} color="inherit" /> : 'Approve'}
+                    Approve
                   </Button>
 
                   <Button
                     size="small"
                     variant="outlined"
                     color="error"
-                    disabled={isBusy}
                     onClick={() => setRejectModal({ open: true, vendor: v, reason: '' })}
                   >
                     Reject
                   </Button>
                 </>
-              )}
+               
             </Stack>
           );
         }
       }
     ],
-    [busy, navigate]
+    [navigate]
   );
-
+      
   return (
     <Box sx={{ p: 4, bgcolor: '#f5f7f9', minHeight: '100vh' }}>
       <Paper elevation={0} sx={{ p: 3, borderRadius: 2, border: '1px solid #e0e4e8' }}>

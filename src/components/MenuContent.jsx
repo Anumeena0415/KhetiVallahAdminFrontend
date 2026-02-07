@@ -77,22 +77,22 @@ export const menuItems = [
 
     ]
   },
-  {
-    text: 'Store Manager',
-    icon: <SupportAgentSharp />,
-    children: [
-      { text: 'Store Managers', path: '/store-managers' },
-    ]
-  },
-    {
-    text: 'Products',
-    icon: <Description />,
-    children: [
-      { text: 'Products', path: '/products' },
-      { text: 'Pending Products', path: '/pending-products' },
-      { text: 'Approve Products', path: '/approve-products' },
-    ]
-  },
+  // {
+  //   text: 'Store Manager',
+  //   icon: <SupportAgentSharp />,
+  //   children: [
+  //     { text: 'Store Managers', path: '/store-managers' },
+  //   ]
+  // },
+  //   {
+  //   text: 'Products',
+  //   icon: <Description />,
+  //   children: [
+  //     { text: 'Products', path: '/products' },
+  //     { text: 'Pending Products', path: '/pending-products' },
+  //     { text: 'Approve Products', path: '/approve-products' },
+  //   ]
+  // },
     {
     text: 'Orders',
     icon: <Description />,

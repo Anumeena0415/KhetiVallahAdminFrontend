@@ -48,7 +48,7 @@ export default function ApprovedProductList() {
       label: "Image",
       render: (row) => (
         <Avatar
-          src={row.image || row.images?.[0]}
+          src={row.image[0] || row.images?.[0]}
           variant="rounded"
           sx={{ width: 48, height: 48 }}
         />

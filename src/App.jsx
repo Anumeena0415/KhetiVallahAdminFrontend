@@ -91,7 +91,7 @@ function App() {
 
           <Route path="/pending-products" element={<PendingProducts/>} />
           <Route path="/approve-products" element={<ApprovedProducts/>} />
-          <Route path="/product/:id" element={<ProductDetails/>}/>
+          <Route path="/product-details/:id" element={<ProductDetails/>}/>
           <Route path='/products' element={<Products/>} />
 
           <Route path="/orders" element={<Orders/>}/>

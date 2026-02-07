@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useVendor } from '../../api/vendor.js';
-import { useAuth } from '../../api/useAuth';
+import { useAuth } from '../../api/auth';
 import { 
   Sprout, Building2, CreditCard, FileText, User, ArrowRight, Leaf,
   CheckCircle2, AlertCircle, Loader2, Upload, Mail, Phone, Lock, Landmark,

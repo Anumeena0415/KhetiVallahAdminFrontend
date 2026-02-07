@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Leaf, Sprout } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../api/useAuth';
+import { useAuth } from '../api/auth';
 import {toast} from 'react-hot-toast';
 
 const Login = () => {
@@ -89,8 +89,7 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700 ml-1">Email Address</label>
-                        <div className="relative group">
+                        <div className="relative group m-4">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-[#16a34a] transition-colors" />
                             </div>
@@ -106,11 +105,8 @@ const Login = () => {
                     </div>
 
                     <div className="space-y-2">
-                        {/* <div className="flex items-center justify-between ml-1">
-                            <label className="text-sm font-medium text-slate-700">Password</label>
-                            <a href="#" className="text-sm font-medium text-[#16a34a] hover:text-[#15803d] transition-colors">Forgot Password?</a>
-                        </div> */}
-                        <div className="relative group">
+                      
+                        <div className="relative group m-4">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-[#16a34a] transition-colors" />
                             </div>
@@ -138,7 +134,7 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full flex items-center justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-green-900/10 text-sm font-bold text-white bg-[#14532d] hover:bg-[#1a4d2e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#14532d] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed mt-6"
+                        className="w-[90%] m-4 flex items-center justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg shadow-green-900/10 text-sm font-bold text-white bg-[#14532d] hover:bg-[#1a4d2e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#14532d] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed mt-6"
                     >
                         {isLoading ? (
                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -151,14 +147,7 @@ const Login = () => {
                     </button>
                 </form>
 
-                {/* <div className="mt-8 text-center">
-                    <p className="text-sm text-slate-500">
-                        Don't have an account?{' '}
-                        <a href="#" className="font-bold text-[#16a34a] hover:text-[#15803d] transition-colors">
-                            Contact Admin
-                        </a>
-                    </p>
-                </div> */}
+              
             </div>
         </div>
       </div>
